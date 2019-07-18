@@ -1,0 +1,96 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>calendar</title>
+	<style type="text/css">
+
+		.calendar {
+			width: 560px;
+		}
+			.header, .day_contain {
+				display: flex;
+				flex-flow: row wrap;
+			}
+				.header>div,.day_contain>div {
+					flex: 0 0 80px;
+					text-align: center;
+				}
+
+
+	</style>
+</head>
+<body>
+	<div class="calendar">
+		<div class="control">
+			<div id="the-month"></div>
+			<input type="date" name="" onchange="render(new Date(this.value))" />
+			<div class="left"></div>
+			<div class="right"></div>
+		</div>
+		<div class="header">
+			<div>周日</div>
+			<div>周一</div>
+			<div>周二</div>
+			<div>周三</div>
+			<div>周四</div>
+			<div>周五</div>
+			<div>周六</div>
+		</div>
+		<div class="day_contain"></div>
+	</div>
+
+	<script type="text/javascript">
+		var monthDays = 36;
+		var month_olypic = [31,29,31,30,31,30,31,31,30,31,30,31];//闰年
+		var month_normal = [31,28,31,30,31,30,31,31,30,31,30,31];
+		// 当月第一天是周几
+		function dayStart(month, year) {
+			return new Date(year, month, 1).getDay();
+		}
+		// 二月份有多少天
+		function daysMonth(month, year) {
+			var tmp1 = year % 4;
+			if (tmp1 == 0) {
+				return month_olypic[month];
+			} else {
+				return month_normal[month];
+			}
+		}
+		function getRenderDate(myDate) {
+			var theMonth = myDate.getMonth();
+			var theYear = myDate.getFullYear();
+			var totalDay = daysMonth(theMonth, theYear);
+			var firstDay = dayStart(theMonth, theYear);
+			var contentStr = '';
+			for (var i = 0; i < firstDay; i++) {
+				contentStr += '<div></div>';
+			}
+			for (var i = 0; i < monthDays - firstDay;i++) {
+				if (i < totalDay) {
+					var dateObj = new Date(theYear +'/' + (theMonth + 1) + '/' +(i+1));
+					contentStr += ('<div data-time='+ dateObj.getTime() + ' class=day_' + dateObj.getDay() + '>'+ dateObj.getDate() + '</div>');
+				} else {
+					contentStr += '<div></div>'
+				}
+			}
+			//返回当月数据
+			return {
+				allDaysHtml: contentStr,
+				theMonth: theMonth,
+				theYear: theYear
+			}
+		}
+
+		function render(myDate) {
+			var myDate = myDate || new Date();
+			var myMonthDetail = getRenderDate(myDate);
+			var day_contain = document.querySelector('.day_contain');
+			var theMonthEl = document.querySelector('#the-month');
+			day_contain.innerHTML = myMonthDetail.allDaysHtml;
+			theMonthEl.innerHTML = myMonthDetail.theYear + '年' + (myMonthDetail.theMonth+1) + '月';
+		}
+		render();
+		
+	</script>
+</body>
+</html>
