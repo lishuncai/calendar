@@ -1,0 +1,168 @@
+
+
+$green: #51ac36;
+$orange_deep: #f80;
+$orange: #ffa833;
+
+.calendar {
+  $width: 502px;
+  font-size: 12px;
+
+  .control {
+    width: $width;
+    border: 1px solid #f0f0f0;
+    height: 28px;
+    line-height: 28px;
+    font-size: 14px;
+    user-select: none;
+  }
+
+  .header,
+  .day_contain {
+    width: $width;
+    border: #f0f0f0 solid 1px;
+    border-right: none;
+    border-bottom: none;
+    display: flex;
+    flex-flow: row wrap;
+
+    >div {
+      box-sizing: border-box;
+      flex: 0 0 $width / 7;
+      cursor: pointer;
+
+      >span {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+      .price {
+        color: $orange_deep;
+      }
+      .container {
+        padding-top: 6px;
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        right: 0;
+        text-align: center;
+
+        >.tip {
+          margin: 4px 0 2px 0;
+          color: $green;
+        }
+
+        .alert-box {
+          position: absolute;
+          bottom: 40px;
+          background-color: #fff;
+          border: orange solid 1px;
+          width: 200px;
+          color: #666;
+          padding: 8px;
+          z-index: 16;
+          text-align: left;
+          right: -50px;
+          cursor: default;
+          display: none;
+
+          h3 {
+            margin: 0;
+            padding: 0;
+            margin-bottom: 10px;
+            color: $green;
+            font-size: 12px;
+            font-weight: 400;
+          }
+
+          p {
+            line-height: 1;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: orange dotted 1px;
+          }
+          &:after{
+            content: '';
+            display: block;
+            position: absolute;
+            border-left: solid 3px transparent;
+            border-right: solid 3px transparent;
+            border-top: #fff solid 8px;
+            bottom: -8px;
+            right: 80px;
+          }
+        }
+
+        &:hover {
+          background-color: #ffa833;
+        }
+        &:hover >span{
+          color: #fff;
+        }
+        &:hover+span {
+          color: #fff;
+        }
+        &:hover >.alert-box {
+          display: block;
+        }
+
+
+      }
+    }
+    .today {
+      background-color: #ffa833;
+    }
+    .today * {
+      color: white !important;
+    }
+
+    .weekday {
+      color: #FF8800;
+    }
+  }
+
+  .day_contain >div{
+    height: 42px;
+    position: relative;
+    border-right: #f0f0f0 solid 1px;
+    border-bottom:  #f0f0f0 solid 1px;
+    font-size: 12px;
+    color: #333;
+
+    span {
+      margin-left: 2px;
+    }
+  }
+
+  .header {
+    line-height: 22px;
+    text-align: center;
+    background-color: #f8f8f8;
+    font-weight: bold;
+    color: #666666;
+  }
+
+  .control {
+    display: flex;
+    flex-flow: row nowrap;
+
+    .center {
+      flex: 1;
+      text-align: center;
+    }
+
+    .left,
+    .right {
+      border-radius: 100%;
+      flex: 0 0 28px;
+      text-align: center;
+      cursor: pointer;
+
+      &:active {
+        background-color: #eee;
+      }
+    }
+  }
+}
